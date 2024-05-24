@@ -31,3 +31,28 @@ export async function PUT(req, { params }) {
     );
   }
 }
+
+export async function DELETE({ params }) {
+  const { id } = params;
+
+  await connectToDatabase();
+
+  try {
+    await Todo.findByIdAndDelete(id);
+    return NextResponse.json(
+      {
+        success: true,
+        message: "Todo deleted",
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    return NextResponse.json(
+      {
+        success: false,
+        message: "Can't delete todo",
+      },
+      { status: 400 }
+    );
+  }
+}

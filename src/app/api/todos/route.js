@@ -7,7 +7,16 @@ export async function POST(req) {
 
   await connectToDatabase();
   try {
-    await Todo.create({ text });
+    const newTodo = await Todo.create({ text });
+
+    return NextResponse.json(
+      {
+        success: true,
+        message: "Todo created",
+        todo: newTodo,
+      },
+      { status: 201 }
+    );
   } catch (error) {
     return NextResponse.json(
       {
@@ -17,14 +26,6 @@ export async function POST(req) {
       { status: 400 }
     );
   }
-
-  return NextResponse.json(
-    {
-      success: true,
-      message: "Todo created",
-    },
-    { status: 201 }
-  );
 }
 
 export async function GET() {
@@ -56,7 +57,7 @@ export async function DELETE(req) {
   const id = req.nextUrl.searchParams.get("id");
 
   await connectToDatabase();
-  
+
   await Todo.findByIdAndDelete(id);
 
   return NextResponse.json(
