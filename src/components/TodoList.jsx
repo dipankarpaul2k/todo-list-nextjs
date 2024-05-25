@@ -1,16 +1,38 @@
 "use client";
+import { useState } from "react";
 import useTodoStore from "@/store/useTodoStore";
 import Link from "next/link";
 import RemoveBtn from "./RemoveBtn";
 
 export default function TodoList() {
-  const { todos } = useTodoStore();
+  const { todos, toggleTodo } = useTodoStore();
+  const [error, setError] = useState(null);
+
+  const toggle = async (id) => {
+    const todo = todos.find((todo) => todo._id === id);
+    const response = await fetch(`/api/todos/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ completed: !todo.completed }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      toggleTodo(id);
+    } else {
+      setError(data.message);
+    }
+  };
 
   return (
     <div>
-      <p className="text-center font-semibold sm:font-bold text-xl sm:text-2xl">
+      <h1 className="text-center font-semibold sm:font-bold text-xl sm:text-2xl">
         Todos
-      </p>
+      </h1>
+      {error && <p className="text-red-500 text-sm">{error}</p>}
       <ul className="list-disc">
         {todos.map((todo) => (
           <li
@@ -20,7 +42,7 @@ export default function TodoList() {
             }`}
           >
             <span
-              // onClick={() => toggleTodo(todo._id)}
+              onClick={() => toggle(todo._id)}
               className="flex-grow cursor-pointer"
             >
               {todo.text}

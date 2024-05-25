@@ -35,17 +35,15 @@ export default function Home() {
 
   return (
     <>
-      <div>
-        <TodoForm />
-        {/* <TodoList /> */}
-        {loading ? (
-          <div>Loading...</div>
-        ) : error ? (
-          <div>{error}</div>
-        ) : (
-          <TodoList />
-        )}
-      </div>
+      <TodoForm />
+      {/* <TodoList /> */}
+      {loading ? (
+        <div>Loading...</div>
+      ) : error ? (
+        <div>{error}</div>
+      ) : (
+        <TodoList />
+      )}
     </>
   );
 }

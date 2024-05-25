@@ -10,14 +10,9 @@ const Navbar = () => {
         >
           TodoList
         </Link>
-        <div className="flex gap-2">
-          <Link href={`/new`} className="btn_outline">
-            Add New
-          </Link>
-          <Link href={`/completed`} className="btn_filled">
-            Completed
-          </Link>
-        </div>
+        <Link href={`/completed`} className="btn_filled">
+          Completed
+        </Link>
       </nav>
     </header>
   );
