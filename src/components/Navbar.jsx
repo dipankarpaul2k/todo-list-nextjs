@@ -3,7 +3,7 @@ import { IconSquareRoundedCheck } from "@tabler/icons-react";
 
 const Navbar = () => {
   return (
-    <header className="py-4 px-2 sm:px-4 border-b border-b-gray-400">
+    <header className="py-2 sm:py-4 px-4 border-b border-b-gray-400">
       <nav className="flex items-center justify-between">
         <Link
           href="/"

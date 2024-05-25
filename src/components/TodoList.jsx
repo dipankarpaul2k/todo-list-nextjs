@@ -36,22 +36,21 @@ export default function TodoList() {
       {error && <p className="text-red-500 text-sm">{error}</p>}
       <ul className="list-disc">
         {todos.map((todo) => (
-          <li
-            key={todo._id}
-            className={`flex items-center my-2 ${
-              todo.completed ? "line-through" : ""
-            }`}
-          >
+          <li key={todo._id} className={`flex items-center my-2 `}>
             <span
               onClick={() => toggle(todo._id)}
-              className="flex-grow cursor-pointer"
+              className={`flex-grow cursor-pointer ${
+                todo.completed ? "line-through" : ""
+              }`}
             >
               {todo.text}
             </span>
             <Link
               href={`/edit/${todo._id}`}
               className={`ml-2 p-2 bg-yellow-500 text-white rounded ${
-                todo.completed ? "pointer-events-none bg-gray-300" : ""
+                todo.completed
+                  ? "pointer-events-none bg-gray-400 bg-opacity-50"
+                  : ""
               }`}
               aria-disabled={todo.completed}
               tabIndex={todo.completed ? -1 : undefined}
