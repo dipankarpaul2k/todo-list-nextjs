@@ -52,12 +52,13 @@ export default function TodoForm() {
           name="text"
           placeholder="Add a new todo"
           className="flex-grow p-2 border border-gray-300 rounded"
+          autoComplete="off"
         />
         <button
           type="submit"
           className="ml-2 p-2 bg-blue-500 text-white rounded hover:bg-blue-600 hover:scale-95"
         >
-          Add New Todo
+          Add <span className="max-sm:hidden">New Todo</span>
         </button>
       </form>
     </div>

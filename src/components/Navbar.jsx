@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { IconSquareRoundedCheck } from "@tabler/icons-react";
 
 const Navbar = () => {
   return (
@@ -11,7 +12,8 @@ const Navbar = () => {
           TodoList
         </Link>
         <Link href={`/completed`} className="btn_filled">
-          Completed
+          <span className="max-sm:hidden">Completed</span>
+          <IconSquareRoundedCheck stroke={2} className="sm:hidden" />
         </Link>
       </nav>
     </header>

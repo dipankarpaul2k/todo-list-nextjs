@@ -60,6 +60,7 @@ export default function EditTodo() {
           onChange={(e) => setText(e.target.value)}
           placeholder="Edit todo"
           className="flex-grow p-2 border border-gray-300 rounded"
+          autoComplete="off"
         />
         <button
           type="submit"

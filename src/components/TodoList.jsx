@@ -3,6 +3,7 @@ import { useState } from "react";
 import useTodoStore from "@/store/useTodoStore";
 import Link from "next/link";
 import RemoveBtn from "./RemoveBtn";
+import { IconPencil } from "@tabler/icons-react";
 
 export default function TodoList() {
   const { todos, toggleTodo } = useTodoStore();
@@ -55,7 +56,8 @@ export default function TodoList() {
               aria-disabled={todo.completed}
               tabIndex={todo.completed ? -1 : undefined}
             >
-              Edit
+              <span className="max-sm:hidden">Edit</span>
+              <IconPencil className="sm:hidden" />
             </Link>
             <RemoveBtn id={todo._id} />
           </li>
