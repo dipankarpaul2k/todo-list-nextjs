@@ -49,7 +49,11 @@ export default function TodoList() {
             </span>
             <Link
               href={`/edit/${todo._id}`}
-              className="ml-2 p-2 bg-yellow-500 text-white rounded"
+              className={`ml-2 p-2 bg-yellow-500 text-white rounded ${
+                todo.completed ? "pointer-events-none bg-gray-300" : ""
+              }`}
+              aria-disabled={todo.completed}
+              tabIndex={todo.completed ? -1 : undefined}
             >
               Edit
             </Link>
