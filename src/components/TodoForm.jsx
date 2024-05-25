@@ -1,10 +1,8 @@
 "use client";
-import { useState } from "react";
+import toast from "react-hot-toast";
 import useTodoStore from "@/store/useTodoStore";
 
 export default function TodoForm() {
-  const [success, setSuccess] = useState("");
-  const [error, setError] = useState(null);
   const { addTodo } = useTodoStore();
 
   const handleSubmit = async (event) => {
@@ -16,12 +14,13 @@ export default function TodoForm() {
     const text = formData.get("text");
 
     if (!text) {
-      setSuccess("");
-      setError("Text is required.");
+      toast.error("Text is required.", {
+        icon: "😟",
+      });
       return;
     }
 
-    const res = await fetch("/api/todos", {
+    const response = await fetch("/api/todos", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -29,15 +28,17 @@ export default function TodoForm() {
       body: JSON.stringify({ text }),
     });
 
-    const data = await res.json();
+    const data = await response.json();
 
-    if (res.ok) {
-      addTodo(data.newTodo); // Update the todos state
-      setSuccess("Todo created successfully");
-      setError(null);
+    if (response.ok) {
+      addTodo(data.newTodo);
+      toast.success("Todo created successfully!", {
+        icon: "😃",
+      });
     } else {
-      setSuccess("");
-      setError(data.message);
+      toast.error(data.message, {
+        icon: "😟",
+      });
     }
 
     target.reset();
@@ -59,10 +60,6 @@ export default function TodoForm() {
           Add New Todo
         </button>
       </form>
-      <div className="text-sm">
-        {success && <p className="text-blue-500">{success}</p>}
-        {error && <p className="text-red-500">{error}</p>}
-      </div>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
+import toast from "react-hot-toast";
 import useTodoStore from "@/store/useTodoStore";
 
 export default function EditTodo() {
@@ -8,21 +9,24 @@ export default function EditTodo() {
   const { todos, editTodo } = useTodoStore();
   const router = useRouter();
   const [text, setText] = useState("");
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const todo = todos.find((todo) => todo._id === id);
     if (todo) {
       setText(todo.text);
     } else {
-      setError("Todo not found");
+      toast.error("Todo not found.", {
+        icon: "😟",
+      });
     }
   }, [id, todos]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!text) {
-      setError("Text is required.");
+      toast.error("Text is required.", {
+        icon: "😟",
+      });
       return;
     }
 
@@ -40,13 +44,11 @@ export default function EditTodo() {
       editTodo(data.updatedTodo);
       router.push("/");
     } else {
-      setError(data.message);
+      toast.error(data.message, {
+        icon: "😟",
+      });
     }
   };
-
-  if (error) {
-    return <div>{error}</div>;
-  }
 
   return (
     <div>
@@ -66,7 +68,6 @@ export default function EditTodo() {
           Save Changes
         </button>
       </form>
-      {error && <p className="text-red-500">{error}</p>}
     </div>
   );
 }
