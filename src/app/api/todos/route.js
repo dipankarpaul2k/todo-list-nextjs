@@ -13,7 +13,7 @@ export async function POST(req) {
       {
         success: true,
         message: "Todo created",
-        todo: newTodo,
+        newTodo,
       },
       { status: 201 }
     );
