@@ -2,7 +2,9 @@ export default function CompletedTodo() {
   return (
     <>
       <div>
-        <p>Completed Todo Page</p>
+        <h1 className="text-center font-semibold sm:font-bold text-xl sm:text-2xl">
+          Completed Todos
+        </h1>
       </div>
     </>
   );
