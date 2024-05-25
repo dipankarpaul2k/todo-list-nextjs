@@ -4,7 +4,7 @@ import useTodoStore from "@/store/useTodoStore";
 import { useRouter } from "next/navigation";
 
 const RemoveBtn = ({ id }) => {
-  const { setTodos, todos } = useTodoStore();
+  const { setTodos, todos, removeTodo } = useTodoStore();
   const router = useRouter();
 
   const handleDelete = async () => {
@@ -16,9 +16,10 @@ const RemoveBtn = ({ id }) => {
       setError("Error deleting todo");
     }
 
-    const updatedTodo = todos.filter((todo) => todo.id !== id);
-    setTodos(updatedTodo);
-    
+    // const updatedTodo = todos.filter((todo) => todo.id !== id);
+    // setTodos(updatedTodo);
+    removeTodo(id); // Update the todos state
+
     router.refresh();
   };
 

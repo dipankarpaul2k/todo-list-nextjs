@@ -1,11 +1,11 @@
 "use client";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import useTodoStore from "@/store/useTodoStore";
 
 export default function TodoForm() {
   const [success, setSuccess] = useState("");
   const [error, setError] = useState(null);
-  const router = useRouter();
+  const { addTodo } = useTodoStore();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -29,19 +29,18 @@ export default function TodoForm() {
       body: JSON.stringify({ text }),
     });
 
-    const newTodo = await res.json();
+    const data = await res.json();
 
     if (res.ok) {
+      addTodo(data.newTodo); // Update the todos state
       setSuccess("Todo created successfully");
       setError(null);
-      router.refresh();
     } else {
       setSuccess("");
-      setError(newTodo.message);
+      setError(data.message);
     }
 
     target.reset();
-    
   };
 
   return (
