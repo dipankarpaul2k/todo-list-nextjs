@@ -1,6 +1,6 @@
-import connectToDatabase from "@/database/connectToDatabase";
-import Todo from "@/models/Todo";
 import { NextResponse } from "next/server";
+import connectToDatabase from "@/database";
+import Todo from "@/models/Todo";
 
 export async function PUT(req, { params }) {
   const { id } = params;
@@ -31,5 +31,3 @@ export async function PUT(req, { params }) {
     );
   }
 }
-
-
